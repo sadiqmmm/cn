@@ -2,13 +2,56 @@
 <html>
 <head>
   <title>Cn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+  <%= render "layouts/header" %>
 
+  <div class="container">
+
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key %>">
+        <%= message %>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-lg-2">
+      <div class="panel panel-primary" id="panels">
+        <div class="panel-heading">Food Preferences</div>
+      
+        <% FoodPreference.all.each do |fp| %>
+          <p><%= fp.name%></p>
+        <%end%>
+      </div>
+      
+      <div class="panel panel-primary" id="panels">
+        <div class="panel-heading">Food Type</div>
+      
+        <% FoodType.all.each do |ft| %>
+          <p><%= ft.name%></p>
+        <%end%>
+      </div>
+
+      <div class="panel panel-primary" id="panels">
+        <div class="panel-heading">Cuisine</div>
+      
+        <% Cuisine.all.each do |c| %>
+          <p><%= c.name%></p>
+        <%end%>
+        </div>
+      </div>
+      
+      <div class="col-lg-9">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
+
+
